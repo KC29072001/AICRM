@@ -1,4 +1,2 @@
 .env
-credentials.json
-token.json
 crmenv/
