@@ -1,0 +1,14 @@
+# requirements.txt
+fastapi
+uvicorn
+python-dotenv
+langgraph
+langchain
+langchain-google-genai
+llama-index-tools-google
+google-generativeai
+pydantic
+requests
+google-auth-oauthlib
+google-auth
+google-api-python-client
