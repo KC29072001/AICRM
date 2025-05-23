@@ -16,6 +16,7 @@ from langgraph.types import Command
 import re
 import logging
 import xmlrpc.client  # For Odoo API integration
+from fastapi.middleware.cors import CORSMiddleware
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -31,6 +32,14 @@ if missing_vars:
     raise RuntimeError(f"Missing environment variables: {', '.join(missing_vars)}")
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # In-memory storage for credentials (use a database in production)
 CREDENTIALS_STORAGE = {}
