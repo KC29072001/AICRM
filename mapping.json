@@ -1,0 +1,92 @@
+{
+  "endpoint": "/api/v1/crm/odoo/leads",
+  "method": "POST",
+  "operations": {
+    "create": {
+      "patterns": ["create.*lead", "add.*lead"],
+      "required_fields": ["name"],
+      "optional_fields": [
+        "phone", "email_from", "probability", "expected_revenue",
+        "partner_id", "priority", "stage_id", "user_id", "description",
+         "date_deadline", "date_closed", "type",
+        "campaign_id", "source_id", "medium_id", "team_id", "referred",
+        "company_id"
+      ],
+      "example": {
+        "query": "create a lead for YES Electronics with phone +1234567890, revenue 111, and priority high",
+        "payload": {
+          "operation": "create",
+          "username": "kc@infrahive.ai",
+          "data": {
+            "name": "YES Electronics",
+            "phone": "+1234567890",
+            "expected_revenue": 111,
+            "priority": "2"
+          }
+        }
+      }
+    },
+    "read": {
+      "patterns": ["list.*lead", "get.*lead"],
+      "endpoint": "/info/api/v1/retrieve",
+      "required_fields": [],
+      "optional_fields": ["search_term", "limit", "ids"],
+      "example": {
+        "query": "list leads with YES",
+        "payload": {
+          "operation": "read",
+          "username": "kc@infrahive.ai",
+          "source": "odoo",
+          "gmail_address": "kc@infrahive.ai",
+          "data": {
+            "search_term": "YES",
+            "limit": 10
+          }
+        }
+      }
+    },
+    "update": {
+      "patterns": ["update.*lead", "modify.*lead"],
+      "required_fields": ["fields"],
+      "identifier": ["id", "name"],
+      "optional_fields": [
+        "name", "phone", "email_from", "probability", "expected_revenue",
+        "partner_id", "priority", "stage_id", "user_id", "description", 
+        "date_deadline", "date_closed", "type",
+        "campaign_id", "source_id", "medium_id", "team_id", "referred",
+        "company_id"
+      ],
+      "example": {
+        "query": "update the lead YES Electronics with phone +1234567890, revenue 111, and priority high",
+        "payload": {
+          "operation": "update",
+          "username": "kc@infrahive.ai",
+          "data": {
+            "name": "YES Electronics",
+            "fields": {
+              "phone": "+1234567890",
+              "expected_revenue": 111,
+              "priority": "2"
+            }
+          }
+        }
+      }
+    },
+    "delete": {
+      "patterns": ["delete.*lead", "remove.*lead"],
+      "required_fields": [],
+      "identifier": ["id", "name"],
+      "optional_fields": [],
+      "example": {
+        "query": "delete the lead YES Electronics",
+        "payload": {
+          "operation": "delete",
+          "username": "kc@infrahive.ai",
+          "data": {
+            "name": "YES Electronics"
+          }
+        }
+      }
+    }
+  }
+}
