@@ -1,0 +1,93 @@
+{
+  "endpoint": "/api/v1/crm/leads",
+  "method": "POST",
+  "operations": {
+    "create": {
+      "patterns": ["send.*email", "create.*email", "compose.*email"],
+      "required_fields": ["to", "subject", "body"],
+      "optional_fields": [],
+      "field_notes": {
+        "to": "Recipient email address (e.g., 'recipient@example.com').",
+        "subject": "Email subject line.",
+        "body": "Email content as plain text."
+      },
+      "example": {
+        "query": "send an email to client@example.com with subject Meeting and body Let's meet tomorrow",
+        "payload": {
+          "operation": "create",
+          "gmail_address": "kc@infrahive.ai",
+          "data": {
+            "to": "client@example.com",
+            "subject": "Meeting",
+            "body": "Let's meet tomorrow"
+          }
+        }
+      }
+    },
+    "read": {
+      "patterns": ["list.*email", "get.*email", "read.*email"],
+      "required_fields": [],
+      "optional_fields": ["ids", "search_term", "limit"],
+      "field_notes": {
+        "ids": "List of message IDs to retrieve (e.g., ['12345', '67890']).",
+        "search_term": "Gmail search query (e.g., 'from:client@example.com meeting').",
+        "limit": "Maximum number of messages to return (integer, default 10)."
+      },
+      "example": {
+        "query": "list emails from client@example.com",
+        "payload": {
+          "operation": "read",
+          "gmail_address": "kc@infrahive.ai",
+          "data": {
+            "search_term": "from:client@example.com",
+            "limit": 5
+          }
+        }
+      }
+    },
+    "update": {
+      "patterns": ["update.*email", "modify.*email"],
+      "required_fields": ["id", "to", "subject", "body"],
+      "optional_fields": ["delete_original"],
+      "field_notes": {
+        "id": "Message ID of the email to update.",
+        "to": "Recipient email address.",
+        "subject": "Updated email subject.",
+        "body": "Updated email content.",
+        "delete_original": "Boolean; if true, deletes the original message after sending the updated one (default: false)."
+      },
+      "example": {
+        "query": "update email 12345 to client@example.com with subject Updated Meeting and body Meeting rescheduled",
+        "payload": {
+          "operation": "update",
+          "gmail_address": "kc@infrahive.ai",
+          "data": {
+            "id": "12345",
+            "to": "client@example.com",
+            "subject": "Updated Meeting",
+            "body": "Meeting rescheduled",
+            "delete_original": true
+          }
+        }
+      }
+    },
+    "delete": {
+      "patterns": ["delete.*email", "remove.*email"],
+      "required_fields": ["ids"],
+      "optional_fields": [],
+      "field_notes": {
+        "ids": "List of message IDs to delete (e.g., ['12345', '67890'])."
+      },
+      "example": {
+        "query": "delete emails 12345 and 67890",
+        "payload": {
+          "operation": "delete",
+          "gmail_address": "kc@infrahive.ai",
+          "data": {
+            "ids": ["12345", "67890"]
+          }
+        }
+      }
+    }
+  }
+}

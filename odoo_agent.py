@@ -294,7 +294,7 @@ async def manage_odoo_leads(request: OdooLeadRequest):
         raise HTTPException(status_code=500, detail=f"Unexpected error: {str(e)}")
 
 # Load mapping.json
-def load_mapping(file_path: str = "mapping.json") -> Dict[str, Any]:
+def load_mapping(file_path: str = "odoo_mapping.json") -> Dict[str, Any]:
     try:
         with open(file_path, 'r') as f:
             return json.load(f)

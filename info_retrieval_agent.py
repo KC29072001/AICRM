@@ -86,7 +86,9 @@ class LocateRequest(BaseModel):
 # Gmail API credential setup
 def get_gmail_credentials(gmail_address: str):
     creds = CREDENTIALS_STORAGE.get(gmail_address)
-    scopes = ['https://www.googleapis.com/auth/gmail.readonly']
+    # scopes = ['https://www.googleapis.com/auth/gmail.readonly']
+    scopes = ['https://www.googleapis.com/auth/gmail.modify']
+    
 
     # Try loading from file if not in memory
     if not creds:
@@ -135,7 +137,8 @@ def get_oauth_flow(redirect_uri: str):
     try:
         flow = Flow.from_client_secrets_file(
             credentials_path,
-            scopes=['https://www.googleapis.com/auth/gmail.readonly'],
+            # scopes=['https://www.googleapis.com/auth/gmail.readonly'],
+            scopes = ['https://www.googleapis.com/auth/gmail.modify'],
             redirect_uri=redirect_uri
         )
         return flow
@@ -151,7 +154,9 @@ async def auth_start(gmail_address: str, request: FastAPIRequest):
 
     safe_email = gmail_address.replace('@', '_').replace('.', '_')
     token_file = f"token_{safe_email}.json"
-    scopes = ['https://www.googleapis.com/auth/gmail.readonly']
+    # scopes = ['https://www.googleapis.com/auth/gmail.readonly']
+    scopes = ['https://www.googleapis.com/auth/gmail.modify']
+
     creds = None
 
     if os.path.exists(token_file):
@@ -219,7 +224,7 @@ async def auth_callback(request: FastAPIRequest):
 # Endpoint for successful Gmail authentication
 @app.get("/auth/success")
 async def auth_success():
-    return {"message": "Gmail authentication successful. You can now use the /api/v1/retrieve endpoint with source='gmail'."}
+    return {"message": "Gmail authentication successful. You can now use the /api/v1/retrieve endpoint with source='gmail' and also use /gmail/api/v1/chat with your authenticated gmail_address"}
 
 # Endpoint for Odoo authentication
 @app.post("/auth/odoo")
