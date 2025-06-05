@@ -63,7 +63,7 @@ class ChatRequest(BaseModel):
         return v
 
 # Load mapping.json
-def load_mapping(file_path: str = "gamil_mapping.json") -> Dict[str, Any]:
+def load_mapping(file_path: str = "gmail_mapping.json") -> Dict[str, Any]:
     try:
         with open(file_path, 'r') as f:
             return json.load(f)
